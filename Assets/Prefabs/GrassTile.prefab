@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3063735420800856190}
   - component: {fileID: 3063735420800856189}
   - component: {fileID: 3063735420800856188}
-  - component: {fileID: 3063735420800856191}
   m_Layer: 0
   m_Name: Front
   m_TagString: Untagged
@@ -79,20 +78,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3063735420800856191
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735420800856177}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3063735420939088587
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +87,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3063735420939088584}
-  - component: {fileID: 1065737913622639940}
   - component: {fileID: 1488557726033943851}
   m_Layer: 0
   m_Name: GrassTile
@@ -131,19 +115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1065737913622639940
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735420939088587}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: -5, z: 0}
 --- !u!114 &1488557726033943851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +139,6 @@ GameObject:
   - component: {fileID: 3063735421043115363}
   - component: {fileID: 3063735421043115374}
   - component: {fileID: 3063735421043115361}
-  - component: {fileID: 3063735421043115360}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -236,20 +206,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3063735421043115360
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735421043115362}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3063735421480503290
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +218,7 @@ GameObject:
   - component: {fileID: 3063735421480503238}
   - component: {fileID: 3063735421480503289}
   - component: {fileID: 3063735421480503288}
+  - component: {fileID: 1316060571317151723}
   m_Layer: 0
   m_Name: Top
   m_TagString: Untagged
@@ -308,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: abf05e38b8e3e754095572668322b6ba, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -343,6 +300,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1316060571317151723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3063735421480503290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabb24dfbe66fef428717c74d37ccf88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3063735422148747053
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +323,6 @@ GameObject:
   - component: {fileID: 3063735422148747050}
   - component: {fileID: 3063735422148747049}
   - component: {fileID: 3063735422148747048}
-  - component: {fileID: 3063735422148747051}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -422,20 +390,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3063735422148747051
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735422148747053}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3063735422408683785
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +401,6 @@ GameObject:
   - component: {fileID: 3063735422408683798}
   - component: {fileID: 3063735422408683797}
   - component: {fileID: 3063735422408683796}
-  - component: {fileID: 3063735422408683799}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -515,20 +468,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3063735422408683799
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735422408683785}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3063735422858615877
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +479,6 @@ GameObject:
   - component: {fileID: 3063735422858615874}
   - component: {fileID: 3063735422858615873}
   - component: {fileID: 3063735422858615872}
-  - component: {fileID: 3063735422858615875}
   m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
@@ -608,17 +546,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3063735422858615875
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3063735422858615877}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

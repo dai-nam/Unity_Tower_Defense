@@ -8,11 +8,9 @@ public class TowerFactory : MonoBehaviour
     [SerializeField] Transform towerPrefab;
 
 
-  
-
-    public void BuildTower(object sender, Transform location)
+    public void BuildTower(GrassTile tile)
     {
-       var tower = Instantiate(towerPrefab, location);
+        var tower = Instantiate(towerPrefab, tile.transform);
         tower.SetParent(gameObject.transform);
     }
 

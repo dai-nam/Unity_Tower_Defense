@@ -5,7 +5,12 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
 
-  public List<Tile> waypoints = new List<Tile>();
+  [SerializeField] List<Tile> waypoints = new List<Tile>();
+
+    public List<Tile> GetWaypoints()
+    {
+        return waypoints;
+    }
 
 
 }

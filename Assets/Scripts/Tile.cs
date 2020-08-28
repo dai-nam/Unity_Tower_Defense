@@ -11,13 +11,11 @@ public abstract class Tile : MonoBehaviour
 
     public int gridSize = 10;
 
-
     void Update()
     {
         SnapToGrid();
         UpdateName();
     }
-
 
 
     void SnapToGrid()
@@ -31,5 +29,4 @@ public abstract class Tile : MonoBehaviour
 
     protected abstract void UpdateName();
    
-     
 }

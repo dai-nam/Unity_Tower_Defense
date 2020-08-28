@@ -4,17 +4,20 @@ using System;
 
 public class GrassTile : Tile
 {
-    public static event EventHandler<Transform> OnGrassTileClicked;
+    public delegate void GrassTileClicked(GrassTile tile);
+    public static event GrassTileClicked OnGrassTileClicked;
     bool towerPlaced;
 
     private void OnMouseDown()
     {
         if(!towerPlaced)
         {
-            OnGrassTileClicked?.Invoke(this, this.transform);
+            OnGrassTileClicked?.Invoke(this);
             towerPlaced = true;
         }
     }
+
+  
 
     protected override void  UpdateName()
     {

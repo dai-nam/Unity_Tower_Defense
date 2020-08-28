@@ -6,17 +6,28 @@ using System;
 public class EventHandler : MonoBehaviour
 {
 
+    public delegate void TowerBuildingMode();
+    public event TowerBuildingMode OnTowerBuildingMode;
     TowerFactory towerFactory;
-    Enemy enemy;
 
     void Start()
     {
 
         towerFactory = FindObjectOfType<TowerFactory>();
-        enemy = FindObjectOfType<Enemy>();
-
         GrassTile.OnGrassTileClicked += towerFactory.BuildTower;
 
+        OnTowerBuildingMode += Test;
+    }
+
+    void Test()
+    {
+        print("Tower Building Mode Enter");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("a"))
+            OnTowerBuildingMode?.Invoke();
     }
 
 

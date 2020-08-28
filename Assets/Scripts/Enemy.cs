@@ -9,36 +9,34 @@ public class Enemy : MonoBehaviour
     Path path;
     Vector3 yOffest;
    [Range (0f, 10f)] [SerializeField] float speed = 1f;
-    public event Action OnPathFinished;
+    public delegate void FinishedPath(Enemy enemy);
+    public event FinishedPath OnFinishedPath;
+
 
     void Start()
     {
         path = FindObjectOfType<Path>();
-        yOffest = new Vector3(0, transform.position.y, 0);
-        transform.position = path.waypoints[0].transform.position+yOffest;
+        yOffest = new Vector3(0, transform.localScale.y, 0);
+        transform.position += yOffest;
         StartCoroutine(MoveEnemy());
 
     }
 
 
-
- 
-
     IEnumerator MoveEnemy()
     {
-        foreach(Tile wp in path.waypoints)
+        foreach(Tile wp in path.GetWaypoints())
         {
             transform.position = wp.transform.position+ yOffest;
             yield return new WaitForSeconds(speed);
         }
-
-        PathFinished();
+        TriggerFinishEvent();
     }
 
-    private void PathFinished()
+    private void TriggerFinishEvent()
     {
         print(gameObject + " finished the path");
-        OnPathFinished?.Invoke();
+        OnFinishedPath?.Invoke(this);
         Destroy(gameObject);
     }
 
