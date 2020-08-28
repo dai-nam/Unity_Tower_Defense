@@ -3947,6 +3947,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6315638374927049031, guid: 009fbd6acb4e1c344a45c87afdb36a3b,
     type: 3}
+  speed: 0.52
+  tempList: []
 --- !u!4 &856598724
 Transform:
   m_ObjectHideFlags: 0
@@ -9898,8 +9900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 746871af9a61ddc419aa74984874d9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 4167534369886684464, guid: 9e1c618b14807074a9c3c4790756fbf9,
+  towerPrefab: {fileID: 6504008507529448521, guid: 9e1c618b14807074a9c3c4790756fbf9,
     type: 3}
+  maxTowers: 4
+  towers: []
+  currentIndex: 0
 --- !u!4 &1656489756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3063735420939088584, guid: 90f637c8cc4fe754ba5a42bbeb84adcb,
@@ -11682,7 +11687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491a3c3740555b64da21097deb65cb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnRate: 1
+  enemySpawnRate: 1.3
 --- !u!4 &2007850040
 Transform:
   m_ObjectHideFlags: 0
@@ -12548,6 +12553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WP 0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063735421203476640, guid: 90f637c8cc4fe754ba5a42bbeb84adcb,
+        type: 3}
+      propertyPath: m_Text
+      value: 0,0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90f637c8cc4fe754ba5a42bbeb84adcb, type: 3}

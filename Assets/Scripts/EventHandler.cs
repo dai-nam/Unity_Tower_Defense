@@ -14,7 +14,7 @@ public class EventHandler : MonoBehaviour
     {
 
         towerFactory = FindObjectOfType<TowerFactory>();
-        GrassTile.OnGrassTileClicked += towerFactory.BuildTower;
+        GrassTileClick.OnGrassTileClicked += towerFactory.BuildTower;
 
         OnTowerBuildingMode += Test;
     }

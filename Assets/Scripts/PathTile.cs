@@ -8,9 +8,8 @@ public class PathTile : Tile
 
     protected override void UpdateName()
     {
-        string name = transform.position.x / gridSize + "," + transform.position.z / gridSize;
-        gameObject.name = "WP "+name;
-        GetComponentInChildren<TextMesh>().text = name;
+        gameObject.name = "WP "+base.GetCoordinates();
+        GetComponentInChildren<TextMesh>().text = base.GetCoordinates();
     }
 
 

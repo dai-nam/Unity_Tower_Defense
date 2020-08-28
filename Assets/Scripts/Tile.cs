@@ -27,6 +27,11 @@ public abstract class Tile : MonoBehaviour
         transform.position = snapPos;
     }
 
+    protected String GetCoordinates()
+    {
+       return transform.position.x / gridSize + "," + transform.position.z / gridSize;
+    }
+
     protected abstract void UpdateName();
-   
+
 }

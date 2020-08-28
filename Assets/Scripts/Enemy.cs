@@ -8,9 +8,13 @@ public class Enemy : MonoBehaviour
 
     Path path;
     Vector3 yOffest;
-   [Range (0f, 10f)] [SerializeField] float speed = 1f;
-    public delegate void FinishedPath(Enemy enemy);
-    public event FinishedPath OnFinishedPath;
+    public float speed;
+    public bool isTarget;
+    public int healthPoints = 3;
+
+    public static event Action<Enemy> OnFinishedPath;
+    public static event Action<Enemy> OnGotKilled;
+
 
 
     void Start()
@@ -19,9 +23,7 @@ public class Enemy : MonoBehaviour
         yOffest = new Vector3(0, transform.localScale.y, 0);
         transform.position += yOffest;
         StartCoroutine(MoveEnemy());
-
     }
-
 
     IEnumerator MoveEnemy()
     {
@@ -35,9 +37,16 @@ public class Enemy : MonoBehaviour
 
     private void TriggerFinishEvent()
     {
-        print(gameObject + " finished the path");
         OnFinishedPath?.Invoke(this);
-        Destroy(gameObject);
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if(--healthPoints <= 0)
+        {
+            OnGotKilled?.Invoke(this);
+        }
+    }
+
 
 }
