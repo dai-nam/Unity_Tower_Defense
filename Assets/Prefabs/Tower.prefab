@@ -231,7 +231,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 200
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -923,12 +923,12 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 1
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4765,6 +4765,8 @@ GameObject:
   - component: {fileID: 8845457842235595704}
   - component: {fileID: 6595947129039464179}
   - component: {fileID: 6504008507529448521}
+  - component: {fileID: 7843214926134900102}
+  - component: {fileID: -6664642595888555788}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -4845,4 +4847,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25e2346f66272d4cabaa36b8b895549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShooting: 1
   bullets: {fileID: 0}
+--- !u!114 &7843214926134900102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906263464797073667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb5259dd2ff30c40995a3a6698cbc5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootSpeed: 0.7
+  shootTarget: 0
+--- !u!114 &-6664642595888555788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906263464797073667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f43e12738519f41afc01fed22adece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

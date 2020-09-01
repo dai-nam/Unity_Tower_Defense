@@ -9,8 +9,8 @@ public class EnemyFactory : MonoBehaviour
     Tile spawnPoint;
     [SerializeField] Enemy enemyPrefab;
     public static List<Enemy> spawnedEnemies;
-    [Range(0f, 10f)] [SerializeField] float speed = 2f;
-    public List<Enemy> tempList;
+    public List<Enemy> showListInInspector;
+
 
 
     public delegate void EnemySpawned(Enemy enemy);
@@ -19,7 +19,7 @@ public class EnemyFactory : MonoBehaviour
     private void Awake()
     {
         spawnedEnemies = new List<Enemy>();
-        tempList = spawnedEnemies;
+        showListInInspector = spawnedEnemies;
     }
 
     private void Start()
@@ -37,9 +37,13 @@ public class EnemyFactory : MonoBehaviour
 
     public void SpawnEnemy()
     {
+        EnemyType _type;
+        float f = UnityEngine.Random.Range(0f, 1f);
+        _type = (f <= 0.6f) ? EnemyType.Slow : EnemyType.Fast;
         Enemy  enemy = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
+         enemy.Type = _type;
+
         enemy.transform.SetParent(this.gameObject.transform);
-        enemy.speed = this.speed;
         spawnedEnemies.Add(enemy);
         OnEnemySpawned?.Invoke(enemy);
     }

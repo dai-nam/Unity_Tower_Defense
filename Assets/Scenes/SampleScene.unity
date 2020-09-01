@@ -3947,8 +3947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6315638374927049031, guid: 009fbd6acb4e1c344a45c87afdb36a3b,
     type: 3}
-  speed: 0.52
-  tempList: []
+  showListInInspector: []
 --- !u!4 &856598724
 Transform:
   m_ObjectHideFlags: 0
@@ -11687,7 +11686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491a3c3740555b64da21097deb65cb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnRate: 1.3
+  enemySpawnRate: 6.4
 --- !u!4 &2007850040
 Transform:
   m_ObjectHideFlags: 0
