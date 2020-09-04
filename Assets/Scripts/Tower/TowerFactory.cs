@@ -41,13 +41,17 @@ public class TowerFactory : MonoBehaviour
         Tower tower = Instantiate(towerPrefab, tile.transform.position + yOffset, Quaternion.identity);
         towers[index] = tower;
         tower.transform.SetParent(gameObject.transform);
-        tower.ParentTile = tile;
+        towers[index].ParentTile = tile;
+        tile.SetTowerToTile(tower);
     }
 
     private void MoveExistingTower(GrassTile tile)
     {
-        towers[index].ParentTile.isTowerPlaced = false;                     //Reset isTowerPlaced for old Position
+        towers[index].ParentTile.RemoveTowerFromTile();
+       // towers[index].ParentTile.isTowerPlaced = false;                     //Reset isTowerPlaced for old Position
         towers[index].transform.position = tile.transform.position + yOffset;
-        towers[index].ParentTile = tile;                   
+        towers[index].ParentTile = tile;
+        tile.SetTowerToTile(towers[index]);
+
     }
 }

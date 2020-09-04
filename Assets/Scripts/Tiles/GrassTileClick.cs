@@ -1,31 +1,59 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Tiles;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class GrassTileClick : MonoBehaviour
+public class GrassTileClick : TileClick
 {
+    GrassTile root;
+    Material mat;
 
     public delegate void GrassTileClicked(GrassTile tile);
     public static event GrassTileClicked OnGrassTileClicked;
-    public bool isTowerPlaced;
+    public delegate void TowerClicked(Tower tower);
+    public static event TowerClicked OnTowerClicked;
+ 
 
-
-
-    private void OnMouseEnter()
+    private void Awake()
     {
-        if(!isTowerPlaced)
+        root = GetComponentInParent<GrassTile>();
+        mat = GetComponent<Renderer>().material;
+    }
+
+
+    protected override void OnMouseEnter()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            return;
+        }
+        if (!root.isTowerPlaced)                // -> schöner machen? Biding?
+        {
+            mat.EnableKeyword("_EMISSION");
+            return;
         }
     }
 
-    private void OnMouseExit()
+    protected override void OnMouseExit()
     {
-        GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+     
+        mat.DisableKeyword("_EMISSION");
     }
 
-    private void OnMouseDown()
+    protected override void OnMouseDown()
     {
-            OnGrassTileClicked?.Invoke(GetComponentInParent<GrassTile>());
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        if (!root.isTowerPlaced)             //oder besser root.tower != null  ?
+        {
+            OnGrassTileClicked?.Invoke(root);
+        }
+        else
+        {
+            OnTowerClicked?.Invoke(root.GetTower());
+        }
     }
 }

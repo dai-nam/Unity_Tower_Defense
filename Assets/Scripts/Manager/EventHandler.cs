@@ -6,29 +6,45 @@ using System;
 public class EventHandler : MonoBehaviour
 {
 
-    public delegate void TowerBuildingMode();
-    public event TowerBuildingMode OnTowerBuildingMode;
     TowerFactory towerFactory;
+    TowerUI towerUI;
 
-    void Start()
+    void Awake()
     {
 
         towerFactory = FindObjectOfType<TowerFactory>();
+        towerUI = FindObjectOfType<TowerUI>();
+
         GrassTileClick.OnGrassTileClicked += towerFactory.PlaceTower;
+        GrassTileClick.OnGrassTileClicked += ToggleTowerUIinactive;
 
-        OnTowerBuildingMode += Test;
+        GrassTileClick.OnTowerClicked += towerUI.SetPosition;
+        GrassTileClick.OnTowerClicked += ToggleTowerUIActive;
+
     }
 
-    void Test()
+    Tower previousSelectedTower;
+    void ToggleTowerUIActive(Tower selectedTower)           //unschön, weil Parameter hier sinnlos
     {
-        print("Tower Building Mode Enter");
+        if(selectedTower == previousSelectedTower)
+        {
+            towerUI.gameObject.SetActive(!towerUI.gameObject.activeSelf);
+        }
+        else
+        {
+            towerUI.gameObject.SetActive(true);
+            towerUI.AttachedTower = selectedTower;
+            previousSelectedTower = selectedTower;
+        }
     }
 
-    private void Update()
+    void ToggleTowerUIinactive(GrassTile tile)          //unschön, weil Parameter hier sinnlos
     {
-        if (Input.GetKeyDown("a"))
-            OnTowerBuildingMode?.Invoke();
+       towerUI.gameObject.SetActive(false);
     }
+
+
+
 
 
 
