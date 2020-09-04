@@ -5,26 +5,37 @@ using System.Linq;
 
 public class ShootingBehaviour : MonoBehaviour
 {
-    TowerProperties towerProperties;
+    TowerProperty towerProperties;
     List<Enemy> enemies;
     public delegate void Fire(Enemy enemy);
     public event Fire OnFire;
 
-    void Start()
+    private void Awake()
     {
-        towerProperties = GetComponent<TowerProperties>();
         enemies = EnemyFactory.spawnedEnemies;
-        StartCoroutine(FireEvent());
     }
 
-    IEnumerator FireEvent ()
+    void Start()
+    {
+     //   towerProperties = GetComponent<TowerProperty>();
+        StartCoroutine(FireEventCoroutine());
+    }
+
+   public void SetTowerPropertyReference(TowerProperty tp)
+    {
+        towerProperties = tp;
+    }
+
+
+    IEnumerator FireEventCoroutine ()
         {
-        while(true)
+        WaitForSeconds wfs = new WaitForSeconds(towerProperties.shootSpeed);
+        while (true)
         {
             //erkundigt sich alle shootSpeed Sekunden nach dem Target und feuert das Event ab. Wenn kein Enemy mehr vorhanden ist und ein neuer gespawnt wird während man wartet, gibt es eine Verzögerung,
             // bis das neue Target erfasst wird, weil dies erst im nächsten Schleifendruchlauf nach der Wartezeit geschieht. Es wird sich immer erkundigt, auch wenn enemy.Count leer ist
             OnFire?.Invoke(GetTargetEnemy(towerProperties.shootTarget));
-            yield return new WaitForSeconds(towerProperties.shootSpeed);        
+            yield return wfs;        
         }
     }
 
@@ -38,13 +49,13 @@ public class ShootingBehaviour : MonoBehaviour
 
         switch (shootAt)
         {
-            case ShootTarget.MostAdvanced:
+            case ShootTarget.FIRST:
                 return GetMostAdvancedEnemy(enemies);
-            case ShootTarget.LeastAdvanced:
+            case ShootTarget.LAST:
                 return GetLeastAdvancedEnemy(enemies);
-            case ShootTarget.Oldest:
+            case ShootTarget.OLDEST:
                 return GetOldestEnemy(enemies);
-            case ShootTarget.Random:
+            case ShootTarget.RANDOM:
                 return GetRandomEnemy(enemies);
             default:
                 return GetMostAdvancedEnemy(enemies);

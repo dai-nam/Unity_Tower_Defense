@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public EnemyType Type { get; set; }
-    
+    EnemyProperty properties;
     public int StepsTaken { get; set; }
     static int numEnemies;
     [SerializeField] private int id;
     Path path;
     Vector3 yOffest;
-    [Range(0f, 5f)] [SerializeField] float speed = 0.8f;
-    public bool isTarget;
-    public int healthPoints = 8;
+
 
     public static event Action<Enemy> OnFinishedPath;
     public static event Action<Enemy> OnGotKilled;
@@ -23,35 +20,31 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         id = ++numEnemies;
+        yOffest = new Vector3(0, transform.localScale.y, 0);
+        transform.position += yOffest;
     }
 
     void Start()
     {
-        yOffest = new Vector3(0, transform.localScale.y, 0);
-        transform.position += yOffest;
         StartCoroutine(MoveEnemy());
-        SetTypeSpecificProperties();
     }
 
+
+
     //todo weitere Properties typspezfisch -> zur Laufzeit änderbar -> in EnemyProperty Klasse auslagern. Enemy kann dann mit Remove und AddComponent seinen Typ zur Laufzeit ändern
-    private void SetTypeSpecificProperties()                                                                 
+    public void InitTypeProperties(EnemyProperty.EnemyType type)                                                                 
     {
-        switch (Type)
+        switch (type)
         {
-            case EnemyType.Slow:
-                SetEnemyColor(Color.red);
+            case EnemyProperty.EnemyType.SLOW:
+                properties = gameObject.AddComponent<SlowEnemy>();
                 break;
-            case EnemyType.Fast:
-                SetEnemyColor(Color.blue);
-                speed /= 2;
+            case EnemyProperty.EnemyType.FAST:
+                properties = gameObject.AddComponent<FastEnemy>();
                 break;
         }
     }
 
-    private void SetEnemyColor(Color color)
-    {
-        GetComponent<Renderer>().material.SetColor("_Color", color);
-    }
 
     public int GetID()
     {
@@ -60,11 +53,12 @@ public class Enemy : MonoBehaviour
 
     IEnumerator MoveEnemy()
     {
-        foreach(Tile waypoint in FindObjectOfType<Path>().GetWaypoints())
+        WaitForSeconds wfs = new WaitForSeconds(properties.speed);
+        foreach (Tile waypoint in FindObjectOfType<Path>().GetWaypoints())
         {
             transform.position = waypoint.transform.position+ yOffest;
             StepsTaken++;
-            yield return new WaitForSeconds(speed);
+            yield return wfs;
         }
         TriggerFinishEvent();
     }
@@ -76,7 +70,7 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if(--healthPoints <= 0)
+        if(--properties.healthPoints <= 0)
         {
             OnGotKilled?.Invoke(this);
         }

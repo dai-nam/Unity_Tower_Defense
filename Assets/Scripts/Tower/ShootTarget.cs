@@ -1,8 +1,8 @@
 ﻿
 public enum ShootTarget
 {
-    MostAdvanced,
-    LeastAdvanced,
-    Oldest,
-    Random
+    FIRST,
+    LAST,
+    OLDEST,
+    RANDOM
 }

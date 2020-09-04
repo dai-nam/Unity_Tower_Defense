@@ -11,8 +11,6 @@ public class EnemyFactory : MonoBehaviour
     public static List<Enemy> spawnedEnemies;
     public List<Enemy> showListInInspector;
 
-
-
     public delegate void EnemySpawned(Enemy enemy);
     public event EnemySpawned OnEnemySpawned;
 
@@ -20,14 +18,10 @@ public class EnemyFactory : MonoBehaviour
     {
         spawnedEnemies = new List<Enemy>();
         showListInInspector = spawnedEnemies;
-    }
-
-    private void Start()
-    {
         Enemy.OnGotKilled += RemoveEnemy;
         Enemy.OnFinishedPath += RemoveEnemy;
-
     }
+
 
     // Damit spawnPoint != null, sonst Bug, weil EnemySpawner von GameManager aufgerufen wird, bevor hier in Start() die Referenz gesetzt wurde
     public  void SetSpawnPointReference()   
@@ -37,17 +31,21 @@ public class EnemyFactory : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        EnemyType _type;
-        float f = UnityEngine.Random.Range(0f, 1f);
-        _type = (f <= 0.6f) ? EnemyType.Slow : EnemyType.Fast;
-        Enemy  enemy = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
-         enemy.Type = _type;
-
+        EnemyProperty.EnemyType type = SelectEnemyType();
+        Enemy enemy = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
+        enemy.InitTypeProperties(type);
         enemy.transform.SetParent(this.gameObject.transform);
         spawnedEnemies.Add(enemy);
         OnEnemySpawned?.Invoke(enemy);
     }
 
+    private static EnemyProperty.EnemyType SelectEnemyType()
+    {
+        EnemyProperty.EnemyType type;
+        float f = UnityEngine.Random.Range(0f, 1f);
+        type = (f <= 0.6f) ? EnemyProperty.EnemyType.SLOW : EnemyProperty.EnemyType.FAST;
+        return type;
+    }
 
     private void RemoveEnemy(Enemy enemy)
     {
@@ -56,4 +54,7 @@ public class EnemyFactory : MonoBehaviour
     }
 
 
-}
+    }
+
+
+

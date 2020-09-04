@@ -11,18 +11,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enemyFactory = FindObjectOfType<EnemyFactory>();
-        StartCoroutine(EnemySpawner());
+        StartCoroutine(EnemySpawnCoroutine());
     }
 
  
 
-    IEnumerator EnemySpawner()
+    IEnumerator EnemySpawnCoroutine()
     {
         enemyFactory.SetSpawnPointReference();  //sicherstellen, dass die Referenz besteht, weil ansonsten NullPointer
-        while(true)
+        WaitForSeconds wfs = new WaitForSeconds(enemySpawnRate);    //cachen, damit es im while Loop nicht immer wieder neu kreiert wird 
+        while (true)
         {           
             enemyFactory.SpawnEnemy();
-            yield return new WaitForSeconds(enemySpawnRate);
+            yield return wfs;
         }
     }
 
