@@ -33,10 +33,10 @@ public class TowerUI : MonoBehaviour
 
     void Upgrade(Tower tower)
     {
-        tower.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+        tower.Upgrade();
     }
     void Sell(Tower tower)
     {
-        tower.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+        tower.Downgrade();
     }
 }

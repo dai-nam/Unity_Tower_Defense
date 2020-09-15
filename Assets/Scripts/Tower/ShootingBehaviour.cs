@@ -28,14 +28,13 @@ public class ShootingBehaviour : MonoBehaviour
 
 
     IEnumerator FireEventCoroutine ()
-        {
-        WaitForSeconds wfs = new WaitForSeconds(towerProperties.shootSpeed);
+    {
         while (true)
         {
             //erkundigt sich alle shootSpeed Sekunden nach dem Target und feuert das Event ab. Wenn kein Enemy mehr vorhanden ist und ein neuer gespawnt wird während man wartet, gibt es eine Verzögerung,
             // bis das neue Target erfasst wird, weil dies erst im nächsten Schleifendruchlauf nach der Wartezeit geschieht. Es wird sich immer erkundigt, auch wenn enemy.Count leer ist
             OnFire?.Invoke(GetTargetEnemy(towerProperties.shootTarget));
-            yield return wfs;        
+            yield return new WaitForSeconds(1/towerProperties.shootSpeed);     //nicht cachen, weil shootspeed sich je nach Level ändert   
         }
     }
 

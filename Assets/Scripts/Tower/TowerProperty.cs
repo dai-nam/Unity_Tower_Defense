@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TowerProperty : MonoBehaviour
 {
     public enum Level
     {
-        BASIC,
-        ADVANCED,
-        EXPERT
+        BASIC = 0,
+        ADVANCED = 1,
+        EXPERT = 2
     }
+
+
 
     public Level level;
     public float shootSpeed;
