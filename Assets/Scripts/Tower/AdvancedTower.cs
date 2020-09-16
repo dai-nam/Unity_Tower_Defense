@@ -5,9 +5,16 @@ using UnityEngine;
 public class AdvancedTower : TowerProperty
 {
 
-    private void Awake()
+
+    private new void Awake()
     {
+        base.Awake();
+
         level = Level.ADVANCED;
         shootSpeed = 2f;
+
+        ChangeTowerLook(towerUpgrades.upgrade_1);
     }
+
+ 
 }

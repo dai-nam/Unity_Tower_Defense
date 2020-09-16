@@ -8,12 +8,15 @@ using System.Linq;
 
 public class Tower : MonoBehaviour
 {
-    ShootingBehaviour shootingBehaviour;
+    public TowerUI towerUI;
+    TowerUpgradeDowngrade tud;
+
+    public ShootingBehaviour shootingBehaviour;
     [SerializeField] bool isShooting = true;
     [SerializeField] ParticleSystem bullets;
-    List<TowerProperty.Level> possibleLevels;
+    public List<TowerProperty.Level> possibleLevels;
 
-    TowerProperty.Level currentLevel;
+    public TowerProperty.Level currentLevel;
   
     private GrassTile parentTile;
     public GrassTile ParentTile
@@ -40,6 +43,8 @@ public class Tower : MonoBehaviour
         shootingBehaviour.OnFire += Shoot;
 
         bullets = GetComponentInChildren<ParticleSystem>();
+
+        tud = GameObject.FindObjectOfType<TowerUpgradeDowngrade>();
     }
 
 
@@ -53,79 +58,19 @@ public class Tower : MonoBehaviour
         }
     }
 
-
     public void Upgrade()
     {
-       // GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-        int currentIndex = (int) possibleLevels.Find(level => level == currentLevel);  // Wert=Index des enums erhalten
-        if (currentIndex >= possibleLevels.Count() - 1)
-        {
-            print("Already highest level");
-            return;
-        }
-        else
-        {
-            UpdateToNewLevel(possibleLevels[currentIndex + 1]);
-        }
+        tud.SetTowerReference(this);
+        tud.Upgrade();
 
     }
 
     public void Downgrade()
     {
-      //  GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
-        int currentIndex = (int) possibleLevels.Find(level => level == currentLevel);  // Wert=Index des enums erhalten
-        if (currentIndex <= 0)
-        {
-            print("Already lowest level");
-            return;
-        }
-        else
-        {
-            UpdateToNewLevel(possibleLevels[currentIndex - 1]);
-        }
+        tud.SetTowerReference(this);
+        tud.Downgrade();
+
     }
-
-    private void UpdateToNewLevel(TowerProperty.Level level)
-    {
-        this.currentLevel = level;
-        DestroyCurrentLevelComponent();
-        AddNewLevelComponent(level);
-    }
-
-    private void DestroyCurrentLevelComponent()
-    {
-        var currentComponent = GetComponent<TowerProperty>();         
-        if (currentComponent != null)
-        {
-           Destroy(currentComponent);
-        }
-    }
-
-    private void AddNewLevelComponent(TowerProperty.Level level)
-    {
-        TowerProperty newComponent = null;
-        switch (level)
-        {
-            case TowerProperty.Level.BASIC:
-                newComponent = gameObject.AddComponent<BasicTower>();
-                break;
-            case TowerProperty.Level.ADVANCED:
-                newComponent = gameObject.AddComponent<AdvancedTower>();
-                break;
-            case TowerProperty.Level.EXPERT:
-                newComponent = gameObject.AddComponent<ExpertTower>();
-                break;
-            default:
-                break;
-        }
-
-        shootingBehaviour.SetTowerPropertyReference(newComponent);
-
-        Debug.Log("Switched behaviour to: " + level);
-    }
-
-
-
 
 
 }

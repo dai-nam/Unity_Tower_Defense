@@ -41,6 +41,7 @@ public class TowerFactory : MonoBehaviour
         Tower tower = Instantiate(towerPrefab, tile.transform.position + yOffset, Quaternion.identity);
         towers[index] = tower;
         tower.transform.SetParent(gameObject.transform);
+        tower.gameObject.name = "Tower " + index;
         towers[index].ParentTile = tile;
         tile.SetTowerToTile(tower);
     }

@@ -9,7 +9,17 @@ public class TowerUI : MonoBehaviour
 
     public static Button upgrade;
     public static Button sell;
-   public Tower AttachedTower { get; set; }
+    private Tower tower;
+   public Tower AttachedTower
+    {
+        get { return tower; }
+        set
+        {
+            tower = value;
+            tower.towerUI = this;
+        }
+
+    }
 
 
     private void Awake()
@@ -25,18 +35,18 @@ public class TowerUI : MonoBehaviour
        gameObject.SetActive(false);             //In Start() damit EventHandler in Awake Referenz aufbauen kann. Sonst findet er es nicht
     }
 
-    public void SetPosition(Tower tower)                    //transform statt tower?
+    public void SetPosition(Tower _tower)                    //transform statt tower?
     {
-        gameObject.transform.position = tower.transform.position;
+        gameObject.transform.position = _tower.transform.position;
     }
 
 
-    void Upgrade(Tower tower)
+    void Upgrade(Tower _tower)
     {
-        tower.Upgrade();
+        _tower.Upgrade();
     }
-    void Sell(Tower tower)
+    void Sell(Tower _tower)
     {
-        tower.Downgrade();
+        _tower.Downgrade();
     }
 }

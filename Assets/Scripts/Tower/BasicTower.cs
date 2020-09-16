@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class BasicTower : TowerProperty
 {
-    private void Awake()
+
+
+    private new void Awake()
     {
+        base.Awake();
+
         level = Level.BASIC;
         shootSpeed = 1f;
+
+        ChangeTowerLook(null);
     }
+
 }

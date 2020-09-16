@@ -17,7 +17,6 @@ public class ShootingBehaviour : MonoBehaviour
 
     void Start()
     {
-     //   towerProperties = GetComponent<TowerProperty>();
         StartCoroutine(FireEventCoroutine());
     }
 
