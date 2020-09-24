@@ -18,8 +18,7 @@ public class EnemyFactory : MonoBehaviour
     {
         spawnedEnemies = new List<Enemy>();
         showListInInspector = spawnedEnemies;
-        Enemy.OnGotKilled += RemoveEnemy;
-        Enemy.OnFinishedPath += RemoveEnemy;
+
     }
 
 
@@ -47,11 +46,7 @@ public class EnemyFactory : MonoBehaviour
         return type;
     }
 
-    private void RemoveEnemy(Enemy enemy)
-    {
-        EnemyFactory.spawnedEnemies.Remove(enemy);
-        Destroy(enemy.gameObject);
-    }
+
 
 
     }

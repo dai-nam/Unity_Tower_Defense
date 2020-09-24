@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
 
     public static event Action<Enemy> OnFinishedPath;
     public static event Action<Enemy> OnGotKilled;
+    public static event Action<Enemy> OnHitByBullet;
 
 
     private void Awake()
@@ -73,7 +74,9 @@ public class Enemy : MonoBehaviour
         if(--properties.healthPoints <= 0)
         {
             OnGotKilled?.Invoke(this);
+            return;
         }
+        OnHitByBullet?.Invoke(this);
     }
 
 

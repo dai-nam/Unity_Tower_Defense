@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EventHandler : MonoBehaviour
+public class ClickEventHandler : MonoBehaviour
 {
 
     TowerFactory towerFactory;
