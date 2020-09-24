@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -13,31 +14,38 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip enemyKilled;
     [SerializeField] AudioClip finishedPath;
 
-    public static List<AudioClip> audioClips;
-    public static List<AudioSource> audioSources;
+    private static List<AudioClip> audioClips;
+    private static List<AudioSource> audioSources;
 
     private void Awake()
     {
         audioClips = new List<AudioClip>();
         audioSources = new List<AudioSource>();
         AddAudioClipsToList();
+        AddAudioSources();
+    }
 
+
+    private void AddAudioClipsToList()
+    {
+        //Per Reflection alle AudioClip Felder der Klasse erhalten und zur Liste audioClips hinzufügen
+        var clips = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Where(pi => typeof(AudioClip).IsAssignableFrom(pi.FieldType));   
+
+        foreach (FieldInfo f in clips)
+        {
+            audioClips.Add((AudioClip) f.GetValue(this));
+        }
+    }
+
+    private void AddAudioSources()
+    {
         foreach (AudioClip audio in audioClips)
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.clip = audio;
             audioSources.Add(source);
         }
-    }
-
-    private void AddAudioClipsToList()
-    {
-        audioClips.Add(towerUpgrade);
-        audioClips.Add(towerDowngrade);
-        audioClips.Add(towerSold);
-        audioClips.Add(enemyHit);
-        audioClips.Add(enemyKilled);
-        audioClips.Add(finishedPath);
     }
 
     public static void PlaySound(string name)
@@ -51,7 +59,5 @@ public class AudioManager : MonoBehaviour
             }
         }
         print("Sound not found: " + name);
-
-
     }
 }

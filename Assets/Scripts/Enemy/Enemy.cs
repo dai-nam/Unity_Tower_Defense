@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int id;
     Path path;
     Vector3 yOffest;
+    [SerializeField] ParticleSystem enemyDeathFX;
 
 
     public static event Action<Enemy> OnFinishedPath;
@@ -73,11 +74,13 @@ public class Enemy : MonoBehaviour
     {
         if(--properties.healthPoints <= 0)
         {
+            Instantiate(enemyDeathFX, this.transform.position, Quaternion.identity);
             OnGotKilled?.Invoke(this);
             return;
         }
         OnHitByBullet?.Invoke(this);
     }
+
 
 
 }
