@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProperties : MonoBehaviour
+public abstract class EnemyProperties : MonoBehaviour
 {
     public EnemyType type;
-    public int healthPoints;
+    public int killBonus;
+    public int damagePlayerHealth;
+    public int enemyHealth;
     public Color color;
    [Range(0f, 5f)] public float speed = 0.8f;
 

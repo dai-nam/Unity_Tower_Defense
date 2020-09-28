@@ -5,7 +5,6 @@ using System;
 
 public class EnemyFactory : MonoBehaviour
 {
-
     Tile spawnPoint;
     [SerializeField] Enemy enemyPrefab;
     public static List<Enemy> spawnedEnemies;
@@ -18,7 +17,6 @@ public class EnemyFactory : MonoBehaviour
     {
         spawnedEnemies = new List<Enemy>();
         showListInInspector = spawnedEnemies;
-
     }
 
 

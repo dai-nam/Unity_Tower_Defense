@@ -11,8 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int id;
     Path path;
     Vector3 yOffest;
+    Vector3 positionOffset;
     [SerializeField] ParticleSystem enemyDeathFX;
-
 
     public static event Action<Enemy> OnFinishedPath;
     public static event Action<Enemy> OnGotKilled;
@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
         id = ++numEnemies;
         yOffest = new Vector3(0, transform.localScale.y, 0);
         transform.position += yOffest;
+        float maxOffest = 3f;
+        positionOffset = new Vector3(UnityEngine.Random.Range(-maxOffest, maxOffest), 0, UnityEngine.Random.Range(-maxOffest, maxOffest));
+        transform.position += positionOffset;       //damit wenn sich mehrere Enemies überlagern auch mehr sichtbar sind
     }
 
     void Start()
@@ -58,7 +61,7 @@ public class Enemy : MonoBehaviour
         WaitForSeconds wfs = new WaitForSeconds(properties.speed);
         foreach (Tile waypoint in FindObjectOfType<Path>().GetWaypoints())
         {
-            transform.position = waypoint.transform.position+ yOffest;
+            transform.position = waypoint.transform.position+ yOffest + positionOffset;
             StepsTaken++;
             yield return wfs;
         }
@@ -72,7 +75,7 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if(--properties.healthPoints <= 0)
+        if(--properties.enemyHealth <= 0)
         {
             Instantiate(enemyDeathFX, this.transform.position, Quaternion.identity);
             OnGotKilled?.Invoke(this);
@@ -84,6 +87,15 @@ public class Enemy : MonoBehaviour
     public EnemyProperties.EnemyType GetEnemyType()
     {
         return this.properties.type;
+    }
+
+    public int GetKillBonus()
+    {
+        return this.properties.killBonus;
+    }
+    public int GetDamagePlayerHealth()
+    {
+        return this.properties.damagePlayerHealth;
     }
 
 

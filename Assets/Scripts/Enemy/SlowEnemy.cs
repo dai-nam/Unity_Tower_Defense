@@ -7,7 +7,9 @@ public class SlowEnemy : EnemyProperties
     private void Awake()
     {
         type = EnemyType.SLOW;
-       healthPoints = 3;
+        killBonus = 20;
+        damagePlayerHealth = 1;
+        enemyHealth = 3;
         color = Color.red;
         speed = base.speed;
         SetEnemyColor();

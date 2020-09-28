@@ -10,30 +10,28 @@ public class GameManager : MonoBehaviour
 
     [Range(0f, 20f)] public float enemySpawnRate = 2f;
     EnemyFactory enemyFactory;
-    TowerFactory towerFactory;
     TowerEventHandler towerEventHandler;
     [SerializeField] Text moneyText;
     [SerializeField] Text healthText;
     public static bool isRunning;
     [SerializeField] Canvas gameOverCanvas;
 
-    MoneyManager moneyManager;
-    HealthManager healthManager;
+    public static MoneyStats MoneyStats;
+    public static HealthStats HealthStats;
 
     private void Awake()
     {
         isRunning = true;
         gameOverCanvas.enabled = false;
-        moneyManager = new MoneyManager(1000, moneyText);
-        healthManager = new HealthManager(5, healthText);
+        MoneyStats = new MoneyStats(1000, moneyText);
+        HealthStats = new HealthStats(5, healthText);
     }
     void Start()
     {
         enemyFactory = FindObjectOfType<EnemyFactory>();
-        towerFactory = FindObjectOfType<TowerFactory>();
         StartCoroutine(EnemySpawnCoroutine());
         towerEventHandler = TowerEventHandler.Instance;
-        HealthManager.OnGameLost += GameLost;
+        HealthStats.OnGameLost += GameLost;
     }
 
 
@@ -49,7 +47,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GameLost(HealthManager hm)
+    void GameLost(HealthStats hm)
     {
         print("You have lost the Game");
         isRunning = false;

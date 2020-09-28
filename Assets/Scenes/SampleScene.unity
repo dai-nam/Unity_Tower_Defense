@@ -12752,7 +12752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491a3c3740555b64da21097deb65cb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnRate: 0.9
+  enemySpawnRate: 0.5
   moneyText: {fileID: 1901879501}
   healthText: {fileID: 1050370197}
   gameOverCanvas: {fileID: 1868530426}

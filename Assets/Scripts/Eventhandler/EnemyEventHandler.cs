@@ -8,7 +8,10 @@ public class EnemyEventHandler : MonoBehaviour
     {
         Enemy.OnHitByBullet += HandleHitByBullet;
         Enemy.OnGotKilled += HandleOnGotKilled;
+        Enemy.OnGotKilled += RemoveEnemy;
         Enemy.OnFinishedPath += HandleOnFinishedPath;
+        Enemy.OnFinishedPath += RemoveEnemy;
+
     }
 
 
@@ -20,16 +23,24 @@ public class EnemyEventHandler : MonoBehaviour
 
     private void HandleOnGotKilled(Enemy enemy)
     {
-        MoneyManager.KillBonus(enemy);
+        if (!GameManager.isRunning)
+        {
+            Enemy.OnGotKilled -= HandleOnGotKilled;
+            return;
+        }
+        GameManager.MoneyStats.ModifyAmountDependingOnEnemyType(enemy);
         AudioManager.PlaySound("Enemy Killed");
-        RemoveEnemy(enemy);
     }
 
     private void HandleOnFinishedPath(Enemy enemy)
     {
-        HealthManager.LoseLives(enemy);
+        if (!GameManager.isRunning)
+        {
+            Enemy.OnFinishedPath -= HandleOnFinishedPath;
+            return;
+        }
+        GameManager.HealthStats.ModifyAmountDependingOnEnemyType(enemy);
         AudioManager.PlaySound("Finished Path");
-        RemoveEnemy(enemy);
     }
 
     private void RemoveEnemy(Enemy enemy)

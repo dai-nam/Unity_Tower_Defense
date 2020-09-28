@@ -36,7 +36,7 @@ public class TowerEventHandler
             return;
         }
         UpdateToNewLevel(tower, level);
-        MoneyManager.LoseMoney(cost);
+        GameManager.MoneyStats.Decrease(cost);
         AudioManager.PlaySound("Tower Upgrade");
     }
 
@@ -45,13 +45,13 @@ public class TowerEventHandler
     public  void HandleDowngradeEvent(Tower tower, TowerProperty.Level level)
     {
         UpdateToNewLevel(tower, level);
-        MoneyManager.Earn(100);
+        GameManager.MoneyStats.Increase(100);
         AudioManager.PlaySound("Tower Downgrade");
     }
 
     public static void HandleSoldEvent(Tower tower)
     {
-        MoneyManager.Earn(200);
+        GameManager.MoneyStats.Increase(200);
         AudioManager.PlaySound("Tower Sold");
         tower.towerUI.gameObject.SetActive(false);
         tower.ParentTile.RemoveTowerFromTile();
@@ -66,7 +66,7 @@ public class TowerEventHandler
         {
             return;
         }
-        MoneyManager.LoseMoney(cost);
+        GameManager.MoneyStats.Decrease(cost);
         AudioManager.PlaySound("Tower Placed");
     }
 
@@ -110,7 +110,7 @@ public class TowerEventHandler
 
     private bool CanAfford(int cost)
     {
-        if (MoneyManager.Deposit >= cost)
+        if (GameManager.MoneyStats.Amount >= cost)
         {
             return true;
         }
