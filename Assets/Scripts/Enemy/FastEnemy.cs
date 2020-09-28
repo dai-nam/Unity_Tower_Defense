@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FastEnemy : EnemyProperty
+public class FastEnemy : EnemyProperties
 {
     private void Awake()
     {

@@ -30,7 +30,7 @@ public class EnemyFactory : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        EnemyProperty.EnemyType type = SelectEnemyType();
+        EnemyProperties.EnemyType type = SelectEnemyType();
         Enemy enemy = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
         enemy.InitTypeProperties(type);
         enemy.transform.SetParent(this.gameObject.transform);
@@ -38,11 +38,11 @@ public class EnemyFactory : MonoBehaviour
         OnEnemySpawned?.Invoke(enemy);
     }
 
-    private static EnemyProperty.EnemyType SelectEnemyType()
+    private static EnemyProperties.EnemyType SelectEnemyType()
     {
-        EnemyProperty.EnemyType type;
+        EnemyProperties.EnemyType type;
         float f = UnityEngine.Random.Range(0f, 1f);
-        type = (f <= 0.6f) ? EnemyProperty.EnemyType.SLOW : EnemyProperty.EnemyType.FAST;
+        type = (f <= 0.6f) ? EnemyProperties.EnemyType.SLOW : EnemyProperties.EnemyType.FAST;
         return type;
     }
 

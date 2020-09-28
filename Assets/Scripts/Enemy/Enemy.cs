@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    EnemyProperty properties;
+    EnemyProperties properties;
     public int StepsTaken { get; set; }
     static int numEnemies;
     [SerializeField] private int id;
@@ -34,14 +34,14 @@ public class Enemy : MonoBehaviour
 
 
     //todo weitere Properties typspezfisch -> zur Laufzeit änderbar -> in EnemyProperty Klasse auslagern. Enemy kann dann mit Remove und AddComponent seinen Typ zur Laufzeit ändern
-    public void InitTypeProperties(EnemyProperty.EnemyType type)                                                                 
+    public void InitTypeProperties(EnemyProperties.EnemyType type)                                                                 
     {
         switch (type)
         {
-            case EnemyProperty.EnemyType.SLOW:
+            case EnemyProperties.EnemyType.SLOW:
                 properties = gameObject.AddComponent<SlowEnemy>();
                 break;
-            case EnemyProperty.EnemyType.FAST:
+            case EnemyProperties.EnemyType.FAST:
                 properties = gameObject.AddComponent<FastEnemy>();
                 break;
         }
@@ -79,6 +79,11 @@ public class Enemy : MonoBehaviour
             return;
         }
         OnHitByBullet?.Invoke(this);
+    }
+
+    public EnemyProperties.EnemyType GetEnemyType()
+    {
+        return this.properties.type;
     }
 
 

@@ -11,6 +11,8 @@ public class TowerFactory : MonoBehaviour
     public Tower[] towers;
     public int index = 0;
     Vector3 yOffset;
+    public static event Action<Tower> OnTowerPlaced;
+
 
     private void Start()
     {
@@ -44,6 +46,9 @@ public class TowerFactory : MonoBehaviour
         tower.gameObject.name = "Tower " + index;
         towers[index].ParentTile = tile;
         tile.SetTowerToTile(tower);
+
+        OnTowerPlaced?.Invoke(tower);
+
     }
 
     private void MoveExistingTower(GrassTile tile)
@@ -54,5 +59,6 @@ public class TowerFactory : MonoBehaviour
         towers[index].ParentTile = tile;
         tile.SetTowerToTile(towers[index]);
 
+        OnTowerPlaced?.Invoke(towers[index]);
     }
 }

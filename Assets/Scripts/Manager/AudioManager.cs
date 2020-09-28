@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] AudioClip towerPlaced;
     [SerializeField] AudioClip towerUpgrade;
     [SerializeField] AudioClip towerDowngrade;
     [SerializeField] AudioClip towerSold;
@@ -58,6 +59,6 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
-        print("Sound not found: " + name);
+        Debug.Log("Sound not found: " + name);
     }
 }

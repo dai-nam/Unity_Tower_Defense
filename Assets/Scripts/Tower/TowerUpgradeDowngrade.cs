@@ -10,25 +10,16 @@ public class TowerUpgradeDowngrade : MonoBehaviour                  //todo Monob
     Tower tower;
 
     //Upgrade Events
-    public delegate void Upgraded(Tower tower);
-    public  event Upgraded OnUpgraded;
+    public static event Action<Tower, TowerProperty.Level> OnUpgrade;
     //Downgrade Events
-    public delegate void Downgraded(Tower tower);
-    public  event Downgraded OnDowngraded;
-    public delegate void TowerSold(Tower tower);
-    public  event TowerSold OnTowerSold;
+    public static event Action<Tower, TowerProperty.Level> OnDowngrade;
+    public static event Action<Tower> OnTowerSold;
 
-    void Awake()
-    {
-        OnUpgraded += TowerEventHandler.HandleUpgradeEvent;
-        OnDowngraded += TowerEventHandler.HandleDowngradeEvent;
-        OnTowerSold += TowerEventHandler.HandleSoldEvent;
-    }
+
 
     public void SetTowerReference(Tower _tower)
     {
         tower = _tower;
-        print("Current tower = " + tower.name);
     }
 
     public  void Upgrade()
@@ -40,8 +31,7 @@ public class TowerUpgradeDowngrade : MonoBehaviour                  //todo Monob
         }
         else
         {
-            UpdateToNewLevel(tower.possibleLevels[currentIndex + 1]);
-            OnUpgraded?.Invoke(tower);
+            OnUpgrade?.Invoke(tower, tower.possibleLevels[currentIndex + 1]);
         }
     }
 
@@ -56,44 +46,9 @@ public class TowerUpgradeDowngrade : MonoBehaviour                  //todo Monob
         }
         else
         {
-            UpdateToNewLevel(tower.possibleLevels[currentIndex - 1]);
-            OnDowngraded?.Invoke(tower);
+            OnDowngrade?.Invoke(tower, tower.possibleLevels[currentIndex - 1]);
         }
     }
 
-    private  void UpdateToNewLevel(TowerProperty.Level level)
-    {
-        tower.currentLevel = level;
-        DestroyCurrentLevelComponent();
-        AddNewLevelComponent(level);
-    }
-
-    private  void DestroyCurrentLevelComponent()
-    {
-        var currentComponent = tower.gameObject.GetComponent<TowerProperty>();
-        if (currentComponent != null)
-        {
-            UnityEngine.Object.Destroy(currentComponent);
-        }
-    }
-
-    private  void AddNewLevelComponent(TowerProperty.Level level)
-    {
-        switch (level)
-        {
-            case TowerProperty.Level.BASIC:
-                tower.gameObject.AddComponent<BasicTower>();
-                break;
-            case TowerProperty.Level.ADVANCED:
-                tower.gameObject.AddComponent<AdvancedTower>();
-                break;
-            case TowerProperty.Level.EXPERT:
-                tower.gameObject.AddComponent<ExpertTower>();
-                break;
-            default:
-                break;
-        }
-        TowerProperty newComponent = tower.gameObject.GetComponent<TowerProperty>();
-        tower.shootingBehaviour.SetTowerPropertyReference(newComponent);
-    }
+   
 }

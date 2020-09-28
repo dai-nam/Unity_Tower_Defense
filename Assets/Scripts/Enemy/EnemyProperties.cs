@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProperty : MonoBehaviour
+public class EnemyProperties : MonoBehaviour
 {
     public EnemyType type;
     public int healthPoints;

@@ -25,16 +25,17 @@ public class ShootingBehaviour : MonoBehaviour
         towerProperties = tp;
     }
 
-
+  
     IEnumerator FireEventCoroutine ()
     {
-        while (true)
+        while (GameManager.isRunning)
         {
             //erkundigt sich alle shootSpeed Sekunden nach dem Target und feuert das Event ab. Wenn kein Enemy mehr vorhanden ist und ein neuer gespawnt wird während man wartet, gibt es eine Verzögerung,
             // bis das neue Target erfasst wird, weil dies erst im nächsten Schleifendruchlauf nach der Wartezeit geschieht. Es wird sich immer erkundigt, auch wenn enemy.Count leer ist
             OnFire?.Invoke(GetTargetEnemy(towerProperties.shootTarget));
-            yield return new WaitForSeconds(1/towerProperties.shootSpeed);     //nicht cachen, weil shootspeed sich je nach Level ändert   
+            yield return new WaitForSeconds(1 / towerProperties.shootSpeed);     //nicht cachen, weil shootspeed sich je nach Level ändert   
         }
+        UnsubscribeMethods();
     }
 
 
@@ -104,5 +105,14 @@ public class ShootingBehaviour : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, _enemies.Count - 1);
         Debug.Log(randomIndex);
         return _enemies[randomIndex];
+    }
+
+    private void UnsubscribeMethods()
+    {
+        System.Delegate[] subscribedMethods = OnFire.GetInvocationList();
+        foreach (var x in subscribedMethods)
+        {
+            OnFire -= (x as Fire);
+        }
     }
 }

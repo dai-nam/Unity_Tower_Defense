@@ -20,12 +20,14 @@ public class EnemyEventHandler : MonoBehaviour
 
     private void HandleOnGotKilled(Enemy enemy)
     {
+        MoneyManager.KillBonus(enemy);
         AudioManager.PlaySound("Enemy Killed");
         RemoveEnemy(enemy);
     }
 
     private void HandleOnFinishedPath(Enemy enemy)
     {
+        HealthManager.LoseLives(enemy);
         AudioManager.PlaySound("Finished Path");
         RemoveEnemy(enemy);
     }
