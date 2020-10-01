@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    EnemyProperties properties;
+    public EnemyProperties Properties { get; set; }
     public int StepsTaken { get; set; }
     static int numEnemies;
     [SerializeField] private int id;
@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        Properties = GetComponent<EnemyProperties>();
         id = ++numEnemies;
         yOffest = new Vector3(0, transform.localScale.y, 0);
         transform.position += yOffest;
@@ -34,23 +35,6 @@ public class Enemy : MonoBehaviour
         StartCoroutine(MoveEnemy());
     }
 
-
-
-    //todo weitere Properties typspezfisch -> zur Laufzeit änderbar -> in EnemyProperty Klasse auslagern. Enemy kann dann mit Remove und AddComponent seinen Typ zur Laufzeit ändern
-    public void InitTypeProperties(EnemyProperties.EnemyType type)                                                                 
-    {
-        switch (type)
-        {
-            case EnemyProperties.EnemyType.SLOW:
-                properties = gameObject.AddComponent<SlowEnemy>();
-                break;
-            case EnemyProperties.EnemyType.FAST:
-                properties = gameObject.AddComponent<FastEnemy>();
-                break;
-        }
-    }
-
-
     public int GetID()
     {
         return this.id;
@@ -58,7 +42,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator MoveEnemy()
     {
-        WaitForSeconds wfs = new WaitForSeconds(properties.speed);
+        WaitForSeconds wfs = new WaitForSeconds(Properties.Speed);
         foreach (Tile waypoint in FindObjectOfType<Path>().GetWaypoints())
         {
             transform.position = waypoint.transform.position+ yOffest + positionOffset;
@@ -75,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if(--properties.enemyHealth <= 0)
+        if(--Properties.EnemyHealth <= 0)
         {
             Instantiate(enemyDeathFX, this.transform.position, Quaternion.identity);
             OnGotKilled?.Invoke(this);
@@ -84,18 +68,18 @@ public class Enemy : MonoBehaviour
         OnHitByBullet?.Invoke(this);
     }
 
-    public EnemyProperties.EnemyType GetEnemyType()
+    public EnemyProperties.Level GetEnemyLevel()
     {
-        return this.properties.type;
+        return GetComponent<EnemyProperties>().CurrentLevel;
     }
 
     public int GetKillBonus()
     {
-        return this.properties.killBonus;
+        return this.Properties.KillBonus;
     }
     public int GetDamagePlayerHealth()
     {
-        return this.properties.damagePlayerHealth;
+        return this.Properties.DamagePlayerHealth;
     }
 
 

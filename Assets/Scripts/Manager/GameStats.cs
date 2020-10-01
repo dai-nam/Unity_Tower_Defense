@@ -38,7 +38,7 @@ public abstract class GameStats
         Amount += amount;
     }
 
-    public void ModifyAmountDependingOnEnemyType(Enemy enemy)
+    public void ModifyAmountDependingOnEnemyLevel(Enemy enemy)
     {
         Modify(enemy);
     }

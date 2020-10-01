@@ -4591,8 +4591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b192892dca470140802026e5bf3af46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 6315638374927049031, guid: 009fbd6acb4e1c344a45c87afdb36a3b,
+  sphereEnemy: {fileID: 6315638374927049031, guid: 009fbd6acb4e1c344a45c87afdb36a3b,
     type: 3}
+  cubeEnemy: {fileID: 1359204206333787252, guid: bdfee52abb0df36429a3fb1ea517b2a8,
+    type: 3}
+  propabilityForLevel1: 1
   showListInInspector: []
 --- !u!4 &856598724
 Transform:
@@ -13168,7 +13171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491a3c3740555b64da21097deb65cb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnRate: 0.5
+  enemySpawnRate: 1
   moneyText: {fileID: 1901879501}
   healthText: {fileID: 1050370197}
   gameOverCanvas: {fileID: 1868530426}

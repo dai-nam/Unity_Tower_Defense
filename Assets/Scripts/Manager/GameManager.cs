@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    [Range(0f, 20f)] public float enemySpawnRate = 2f;
+    [Range(0f, 4f)] public float enemySpawnRate = 1f;
     EnemyFactory enemyFactory;
     TowerEventHandler towerEventHandler;
     [SerializeField] Text moneyText;
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        enemySpawnRate = 1/enemySpawnRate;
         isRunning = true;
         gameOverCanvas.enabled = false;
         MoneyStats = new MoneyStats(1000, moneyText);
@@ -28,7 +29,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        enemyFactory = FindObjectOfType<EnemyFactory>();
+        // enemyFactory = FindObjectOfType<EnemyFactory>();
+        enemyFactory = EnemyFactory.Instance;
         StartCoroutine(EnemySpawnCoroutine());
         towerEventHandler = TowerEventHandler.Instance;
         HealthStats.OnGameLost += GameLost;
@@ -39,11 +41,11 @@ public class GameManager : MonoBehaviour
     IEnumerator EnemySpawnCoroutine()
     {
         enemyFactory.SetSpawnPointReference();  //sicherstellen, dass die Referenz besteht, weil ansonsten NullPointer
-        WaitForSeconds wfs = new WaitForSeconds(enemySpawnRate);    //cachen, damit es im while Loop nicht immer wieder neu kreiert wird 
+       // WaitForSeconds wfs = new WaitForSeconds(enemySpawnRate);    //cachen, damit es im while Loop nicht immer wieder neu kreiert wird 
         while (true)
         {           
             enemyFactory.SpawnEnemy();
-            yield return wfs;
+            yield return new WaitForSeconds(enemySpawnRate);
         }
     }
 

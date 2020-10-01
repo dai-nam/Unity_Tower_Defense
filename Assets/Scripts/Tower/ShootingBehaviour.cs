@@ -12,7 +12,7 @@ public class ShootingBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        enemies = EnemyFactory.spawnedEnemies;
+        enemies = EnemyFactory.Instance.SpawnedEnemies;
     }
 
     void Start()

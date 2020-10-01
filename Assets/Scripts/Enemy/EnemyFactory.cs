@@ -6,44 +6,74 @@ using System;
 public class EnemyFactory : MonoBehaviour
 {
     Tile spawnPoint;
-    [SerializeField] Enemy enemyPrefab;
-    public static List<Enemy> spawnedEnemies;
+    [SerializeField] Enemy sphereEnemy;
+    [SerializeField] Enemy cubeEnemy;
+
+    [Range(0f, 1f)] public float propabilityForLevel1 = 1f;
+
+    public List<Enemy> SpawnedEnemies { get; set; }
     public List<Enemy> showListInInspector;
 
     public delegate void EnemySpawned(Enemy enemy);
     public event EnemySpawned OnEnemySpawned;
 
+    public static EnemyFactory Instance { get; private set; }
+
     private void Awake()
     {
-        spawnedEnemies = new List<Enemy>();
-        showListInInspector = spawnedEnemies;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+
+        SpawnedEnemies = new List<Enemy>();
+        showListInInspector = SpawnedEnemies;
     }
 
 
     // Damit spawnPoint != null, sonst Bug, weil EnemySpawner von GameManager aufgerufen wird, bevor hier in Start() die Referenz gesetzt wurde
-    public  void SetSpawnPointReference()   
+    public void SetSpawnPointReference()   
     {
         spawnPoint = FindObjectOfType<Path>().GetWaypoints()[0];
     }
 
     public void SpawnEnemy()
     {
-        EnemyProperties.EnemyType type = SelectEnemyType();
-        Enemy enemy = Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
-        enemy.InitTypeProperties(type);
-        enemy.transform.SetParent(this.gameObject.transform);
-        spawnedEnemies.Add(enemy);
-        OnEnemySpawned?.Invoke(enemy);
+        //Set Type
+        Enemy currentEnemy = SetEnemyType();
+        currentEnemy = Instantiate(currentEnemy, spawnPoint.transform.position, Quaternion.identity);
+        //Set Type & Level Properties
+        SetLevel(currentEnemy);
+        currentEnemy.transform.SetParent(this.gameObject.transform);
+        SpawnedEnemies.Add(currentEnemy);
+        OnEnemySpawned?.Invoke(currentEnemy);
     }
 
-    private static EnemyProperties.EnemyType SelectEnemyType()
+    private Enemy SetEnemyType()                        //todo refactor
     {
-        EnemyProperties.EnemyType type;
-        float f = UnityEngine.Random.Range(0f, 1f);
-        type = (f <= 0.6f) ? EnemyProperties.EnemyType.SLOW : EnemyProperties.EnemyType.FAST;
-        return type;
+        float x = UnityEngine.Random.Range(0f, 1f);
+        return (x <= 0.5f) ? sphereEnemy : cubeEnemy;
     }
 
+    private void SetLevel(Enemy enemy)
+    {
+        float f = UnityEngine.Random.Range(0f, 1f);
+        if(f <= propabilityForLevel1)
+        {
+            enemy.gameObject.AddComponent<EnemyLevel1>();
+        }
+        else
+        {
+            enemy.gameObject.AddComponent<EnemyLevel2>();
+        }
+    }
+
+    public void SetPropabiltyForLevel1(float prob)
+    {
+        propabilityForLevel1 = prob;
+    }
+
+  
 
 
 

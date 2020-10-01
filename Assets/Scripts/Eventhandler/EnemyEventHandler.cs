@@ -28,7 +28,7 @@ public class EnemyEventHandler : MonoBehaviour
             Enemy.OnGotKilled -= HandleOnGotKilled;
             return;
         }
-        GameManager.MoneyStats.ModifyAmountDependingOnEnemyType(enemy);
+        GameManager.MoneyStats.ModifyAmountDependingOnEnemyLevel(enemy);
         AudioManager.PlaySound("Enemy Killed");
     }
 
@@ -39,13 +39,13 @@ public class EnemyEventHandler : MonoBehaviour
             Enemy.OnFinishedPath -= HandleOnFinishedPath;
             return;
         }
-        GameManager.HealthStats.ModifyAmountDependingOnEnemyType(enemy);
+        GameManager.HealthStats.ModifyAmountDependingOnEnemyLevel(enemy);
         AudioManager.PlaySound("Finished Path");
     }
 
     private void RemoveEnemy(Enemy enemy)
     {
-        EnemyFactory.spawnedEnemies.Remove(enemy);
+        EnemyFactory.Instance.SpawnedEnemies.Remove(enemy);
         Destroy(enemy.gameObject);
     }
 }
