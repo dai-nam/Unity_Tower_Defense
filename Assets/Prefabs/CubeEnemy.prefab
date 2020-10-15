@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8739491642672109753}
   - component: {fileID: 3832871238321702878}
   - component: {fileID: 5460089053285222721}
-  - component: {fileID: 1359204206333787252}
   - component: {fileID: -646513797185716841}
+  - component: {fileID: 4245241240693242253}
   m_Layer: 0
   m_Name: CubeEnemy
   m_TagString: Untagged
@@ -94,21 +94,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1359204206333787252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7233855453614003950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb96d80364d04a4bbbd944b2df47abc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  enemyDeathFX: {fileID: 6476022379646424935, guid: 8ece1fdae84e0084eb96ececf42d4703,
-    type: 3}
 --- !u!114 &-646513797185716841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,9 +106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90baf0d3799c2ee4f9de0dbc53a84b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  killBonus: 0
-  damagePlayerHealth: 0
-  enemyHealth: 0
-  color: {r: 0, g: 0, b: 0, a: 0}
-  speed: 0
+  id: 0
+  enemyDeathFX: {fileID: 6476022379646424935, guid: 8ece1fdae84e0084eb96ececf42d4703,
+    type: 3}
+--- !u!114 &4245241240693242253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7233855453614003950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7a90fdd1785c7438f445f63baed61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

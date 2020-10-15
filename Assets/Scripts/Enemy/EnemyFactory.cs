@@ -6,8 +6,8 @@ using System;
 public class EnemyFactory : MonoBehaviour
 {
     Tile spawnPoint;
-    [SerializeField] Enemy sphereEnemy;
-    [SerializeField] Enemy cubeEnemy;
+    [SerializeField] SphereEnemy sphereEnemy;
+    [SerializeField] CubeEnemy cubeEnemy;
 
     [Range(0f, 1f)] public float propabilityForLevel1 = 1f;
 
@@ -39,10 +39,8 @@ public class EnemyFactory : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        //Set Type
         Enemy currentEnemy = SetEnemyType();
         currentEnemy = Instantiate(currentEnemy, spawnPoint.transform.position, Quaternion.identity);
-        //Set Type & Level Properties
         SetLevel(currentEnemy);
         currentEnemy.transform.SetParent(this.gameObject.transform);
         SpawnedEnemies.Add(currentEnemy);
@@ -52,7 +50,10 @@ public class EnemyFactory : MonoBehaviour
     private Enemy SetEnemyType()                        //todo refactor
     {
         float x = UnityEngine.Random.Range(0f, 1f);
-        return (x <= 0.5f) ? sphereEnemy : cubeEnemy;
+        if (x <= 0.5f)
+            return sphereEnemy;
+        else
+            return cubeEnemy;
     }
 
     private void SetLevel(Enemy enemy)

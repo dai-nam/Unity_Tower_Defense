@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeEnemy : EnemyProperties
+public class CubeEnemy : Enemy
 {
 
-    private void Awake()
+    private new void Awake()
     {
-        //Base Values
-        Type = EnemyType.CUBE;
-
-        KillBonus = 20;
-        DamagePlayerHealth = 1;
-        EnemyHealth = 2;
-        Speed = 1.5f;
+        base.Awake();
+        Properties = GetComponent<EnemyProperties>();
     }
 
+    //More Cube specific behaviour
 
 }

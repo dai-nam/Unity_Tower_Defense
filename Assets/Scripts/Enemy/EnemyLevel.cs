@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class EnemyLevel : MonoBehaviour
 {
-    protected abstract void InitLevelProperties();
+    public abstract void InitLevelProperties(EnemyProperties properties);
 }

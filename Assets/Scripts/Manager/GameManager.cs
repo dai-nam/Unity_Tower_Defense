@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        // enemyFactory = FindObjectOfType<EnemyFactory>();
         enemyFactory = EnemyFactory.Instance;
         StartCoroutine(EnemySpawnCoroutine());
         towerEventHandler = TowerEventHandler.Instance;
@@ -41,11 +40,10 @@ public class GameManager : MonoBehaviour
     IEnumerator EnemySpawnCoroutine()
     {
         enemyFactory.SetSpawnPointReference();  //sicherstellen, dass die Referenz besteht, weil ansonsten NullPointer
-       // WaitForSeconds wfs = new WaitForSeconds(enemySpawnRate);    //cachen, damit es im while Loop nicht immer wieder neu kreiert wird 
         while (true)
         {           
             enemyFactory.SpawnEnemy();
-            yield return new WaitForSeconds(enemySpawnRate);
+            yield return new WaitForSeconds(1/enemySpawnRate);
         }
     }
 

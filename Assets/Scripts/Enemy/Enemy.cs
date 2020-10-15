@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     public EnemyProperties Properties { get; set; }
     public int StepsTaken { get; set; }
     static int numEnemies;
     [SerializeField] private int id;
     Path path;
-    Vector3 yOffest;
+    protected Vector3 yOffest;
     Vector3 positionOffset;
     [SerializeField] ParticleSystem enemyDeathFX;
 
@@ -19,12 +19,21 @@ public class Enemy : MonoBehaviour
     public static event Action<Enemy> OnHitByBullet;
 
 
-    private void Awake()
+    public void Awake()
     {
-        Properties = GetComponent<EnemyProperties>();
         id = ++numEnemies;
-        yOffest = new Vector3(0, transform.localScale.y, 0);
-        transform.position += yOffest;
+        OffsetYPosition(transform);
+        OffsetXZposition();
+    }
+
+    protected virtual void OffsetYPosition(Transform _transform)
+    {
+        yOffest = new Vector3(0, _transform.localScale.y/2, 0);
+        _transform.position += yOffest;
+    }
+
+    private void OffsetXZposition()
+    {
         float maxOffest = 3f;
         positionOffset = new Vector3(UnityEngine.Random.Range(-maxOffest, maxOffest), 0, UnityEngine.Random.Range(-maxOffest, maxOffest));
         transform.position += positionOffset;       //damit wenn sich mehrere Enemies überlagern auch mehr sichtbar sind

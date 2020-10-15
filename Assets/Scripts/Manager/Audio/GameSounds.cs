@@ -4,30 +4,23 @@ using UnityEngine;
 using System.Reflection;
 using UnityEngine.Audio;
 
-public class InGameSounds : MonoBehaviour
+//static oder Singleton machen?
+public abstract class GameSounds : MonoBehaviour
 {
     public AudioMixerGroup audioMixerGroup;
-    private static List<AudioClip> audioClips;
-    private static List<AudioSource> audioSources;
+    public List<AudioClip> audioClips;
+    public List<AudioSource> AudioSources { get; private set; }
 
-    [SerializeField] AudioClip towerPlaced;
-    [SerializeField] AudioClip towerUpgrade;
-    [SerializeField] AudioClip towerDowngrade;
-    [SerializeField] AudioClip towerSold;
 
-    [SerializeField] AudioClip enemyHit;
-    [SerializeField] AudioClip enemyKilled;
-    [SerializeField] AudioClip finishedPath;
-
-    private void Awake()
+    protected void Awake()
     {
         audioClips = new List<AudioClip>();
-        audioSources = new List<AudioSource>();
+        AudioSources = new List<AudioSource>();
         AddAudioClipsToList();
         AddAudioSources();
     }
 
-    private void AddAudioClipsToList()
+    protected void AddAudioClipsToList()
     {
         //Per Reflection alle AudioClip Felder der Klasse erhalten und zur Liste audioClips hinzufügen
         var clips = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
@@ -39,26 +32,25 @@ public class InGameSounds : MonoBehaviour
         }
     }
 
-    private void AddAudioSources()
+    protected void AddAudioSources()
     {
         foreach (AudioClip audio in audioClips)
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
             source.clip = audio;
             SetMixGroup(source);
-            audioSources.Add(source);
-
+            AudioSources.Add(source);
         }
     }
 
-    private void SetMixGroup(AudioSource source)
+    protected void SetMixGroup(AudioSource source)
     {
         source.outputAudioMixerGroup = audioMixerGroup;
     }
 
     public void PlaySound(string name)
     {
-        foreach (AudioSource source in audioSources)
+        foreach (AudioSource source in AudioSources)
         {
             if (name.Equals(source.clip.name))
             {
@@ -69,6 +61,6 @@ public class InGameSounds : MonoBehaviour
         Debug.Log("Sound not found: " + name);
     }
 
-
+  
 
 }

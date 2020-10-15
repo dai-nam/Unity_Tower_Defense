@@ -1,24 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class EnemyLevel2 : EnemyLevel
 {
 
-    EnemyProperties current;
-    private void Awake()
+    public override void InitLevelProperties(EnemyProperties properties)
     {
-        current = GetComponent<EnemyProperties>();
-        InitLevelProperties();
-    }
-
-    protected override void InitLevelProperties()
-    {
-        current.CurrentLevel = EnemyProperties.Level.LEVEL_2;
-        current.KillBonus += 10;
-        current.DamagePlayerHealth += 1;
-        current.EnemyHealth += 2;
-        current.Speed *= 2f;
-        current.EnemyColor = Color.blue;
+        properties.CurrentLevel = EnemyProperties.Level.LEVEL_2;
+        properties.KillBonus += 10;
+        properties.DamagePlayerHealth += 1;
+        properties.EnemyHealth += 2;
+        properties.Speed *= 2f;
+        properties.EnemyColor = Color.blue;
     }
 }

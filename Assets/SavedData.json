@@ -1,0 +1,46 @@
+{
+  "Mixes": [
+    {
+      "audioName": "Tower Placed",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Tower Upgrade",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Tower Downgrade",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Tower Sold",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Enemy Hit",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Enemy Killed",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Finished Path",
+      "volume": 1.0,
+      "pitch": 1.0
+    },
+    {
+      "audioName": "Cartoon Music Loop",
+      "volume": 1.0,
+      "pitch": 2.82
+    }
+  ],
+  "name": "Audio Mix",
+  "hideFlags": 0
+}

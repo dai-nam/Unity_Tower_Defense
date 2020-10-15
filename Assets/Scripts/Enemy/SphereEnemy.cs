@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereEnemy : EnemyProperties
+public class SphereEnemy : Enemy
 {
 
-    private void Awake()
+    public new void Awake()
     {
-        //Base Values
-        Type = EnemyType.SPHERE;
-        KillBonus = 20;
-        DamagePlayerHealth = 1;
-        EnemyHealth = 3;
-        Speed = 1f;
+        base.Awake();
+        Properties = GetComponent<EnemyProperties>();
     }
 
-   
+    protected override void OffsetYPosition(Transform _transform)
+    {
+        yOffest = new Vector3(0, _transform.localScale.y, 0); //Sphere hat einen anderen Offset als Cube, weil Scale vom Mittelpunkt aus gemessen wird
+        _transform.position += yOffest;
+    }
+    //More Sphere specific behaviour
 
 
 }
